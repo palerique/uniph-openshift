@@ -2,7 +2,6 @@ package br.com.sitedoph.uniph.dominio.services;
 
 import br.com.sitedoph.uniph.dominio.entidades.Professor;
 import br.com.sitedoph.uniph.dominio.repositorios.ProfessorRepositorio;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.util.Transacional;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -23,12 +22,10 @@ public class ProfessorService implements Serializable {
         return repo.buscarTodos();
     }
 
-    @Transacional
     public void excluir(Professor professor) {
         repo.excluir(professor);
     }
 
-    @Transacional
     public Professor salvarOuAtualizar(Professor professor) {
         return repo.salvarOuAtualizar(professor);
     }

@@ -3,22 +3,14 @@ package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 import br.com.sitedoph.uniph.dominio.entidades.Aluno;
 import br.com.sitedoph.uniph.dominio.repositorios.AlunoRepositorio;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 import java.util.List;
 
+@Stateless
 public class AlunoDAO extends GenericDAOHibernate<Aluno> implements AlunoRepositorio {
 
     private static final long serialVersionUID = 1L;
-
-    private final EntityManager entityManager;
-
-    @Inject
-    public AlunoDAO(EntityManager entityManager) {
-        super(Aluno.class, entityManager);
-        this.entityManager = entityManager;
-    }
 
     @Override
     public List<Aluno> filtrarPorPalavraChave(String filtro) {

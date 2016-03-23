@@ -3,21 +3,13 @@ package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 import br.com.sitedoph.uniph.dominio.repositorios.UsuarioRepositorio;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.ejb.Stateless;
 import java.util.List;
 
+@Stateless
 public class UsuarioDAO extends GenericDAOHibernate<Usuario> implements UsuarioRepositorio {
 
     private static final long serialVersionUID = 1L;
-
-    private final EntityManager entityManager;
-
-    @Inject
-    public UsuarioDAO(EntityManager entityManager) {
-        super(Usuario.class, entityManager);
-        this.entityManager = entityManager;
-    }
 
     @Override
     public Usuario buscarPorLoginESenha(String login, String senha) {

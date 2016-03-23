@@ -3,22 +3,14 @@ package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 import br.com.sitedoph.uniph.dominio.entidades.Turma;
 import br.com.sitedoph.uniph.dominio.repositorios.TurmaRepositorio;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 import java.util.List;
 
+@Stateless
 public class TurmaDAO extends GenericDAOHibernate<Turma> implements TurmaRepositorio {
 
     private static final long serialVersionUID = 1L;
-
-    private final EntityManager entityManager;
-
-    @Inject
-    public TurmaDAO(EntityManager entityManager) {
-        super(Turma.class, entityManager);
-        this.entityManager = entityManager;
-    }
 
     @Override
     public List<Turma> filtrarPorPalavraChave(String filtro) {

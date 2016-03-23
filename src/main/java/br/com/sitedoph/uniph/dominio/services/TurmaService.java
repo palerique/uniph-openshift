@@ -2,7 +2,6 @@ package br.com.sitedoph.uniph.dominio.services;
 
 import br.com.sitedoph.uniph.dominio.entidades.Turma;
 import br.com.sitedoph.uniph.dominio.repositorios.TurmaRepositorio;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.util.Transacional;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -23,12 +22,10 @@ public class TurmaService implements Serializable {
         return repo.buscarTodos();
     }
 
-    @Transacional
     public void excluir(Turma turma) {
         repo.excluir(turma);
     }
 
-    @Transacional
     public Turma salvarOuAtualizar(Turma turma) {
         return repo.salvarOuAtualizar(turma);
     }

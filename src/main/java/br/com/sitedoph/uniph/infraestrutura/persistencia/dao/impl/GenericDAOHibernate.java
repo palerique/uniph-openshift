@@ -7,21 +7,21 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class GenericDAOHibernate<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @PersistenceContext(unitName = "uniph")
+    protected EntityManager entityManager;
 
-    private final Class<T> CLASSE;
-
-    private final EntityManager entityManager;
-
-    public GenericDAOHibernate(Class<T> classe, EntityManager entityManager) {
-        CLASSE = classe;
-        this.entityManager = entityManager;
+    private Class<T> getTypeClass() {
+        return (Class<T>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     public T salvarOuAtualizar(T entidade) {
@@ -29,14 +29,14 @@ public class GenericDAOHibernate<T> implements Serializable {
     }
 
     public T buscarPorId(Long id) {
-        return entityManager.find(CLASSE, id);
+        return entityManager.find(getTypeClass(), id);
     }
 
     public List<T> buscarTodos() {
 
-        CriteriaQuery<T> query = entityManager.getCriteriaBuilder().createQuery(CLASSE);
+        CriteriaQuery<T> query = entityManager.getCriteriaBuilder().createQuery(getTypeClass());
 
-        query.select(query.from(CLASSE));
+        query.select(query.from(getTypeClass()));
 
         return entityManager.createQuery(query).getResultList();
     }
@@ -50,7 +50,7 @@ public class GenericDAOHibernate<T> implements Serializable {
 
         Session session = getHibernateSession();
 
-        Criteria crit = session.createCriteria(CLASSE);
+        Criteria crit = session.createCriteria(getTypeClass());
 
         for (Criterion criterion : criteria) {
             crit.add(criterion);
@@ -77,7 +77,7 @@ public class GenericDAOHibernate<T> implements Serializable {
 
         Session session = getHibernateSession();
 
-        Criteria criteria = session.createCriteria(CLASSE).add(example);
+        Criteria criteria = session.createCriteria(getTypeClass()).add(example);
 
         return criteria.list();
     }

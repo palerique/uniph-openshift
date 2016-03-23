@@ -3,22 +3,14 @@ package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 import br.com.sitedoph.uniph.dominio.entidades.Professor;
 import br.com.sitedoph.uniph.dominio.repositorios.ProfessorRepositorio;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import javax.ejb.Stateless;
 import javax.persistence.Query;
 import java.util.List;
 
+@Stateless
 public class ProfessorDAO extends GenericDAOHibernate<Professor> implements ProfessorRepositorio {
 
     private static final long serialVersionUID = 1L;
-
-    private final EntityManager entityManager;
-
-    @Inject
-    public ProfessorDAO(EntityManager entityManager) {
-        super(Professor.class, entityManager);
-        this.entityManager = entityManager;
-    }
 
     @Override
     public List<Professor> filtrarPorPalavraChave(String filtro) {
