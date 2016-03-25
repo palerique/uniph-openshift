@@ -44,6 +44,15 @@ public class Usuario implements Serializable {
             + "menos 5 caracteres")
     private String senha;
 
+    public Usuario() {
+        //deixado em branco
+    }
+
+    public Usuario(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+    }
+
 
     public String getEmail() {
         return email;
