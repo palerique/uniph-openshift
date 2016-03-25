@@ -48,11 +48,12 @@ public class Usuario implements Serializable {
         //deixado em branco
     }
 
-    public Usuario(String login, String senha) {
+    public Usuario(String email, String login, String nomeCompleto, String senha) {
+        this.email = email;
         this.login = login;
+        this.nomeCompleto = nomeCompleto;
         this.senha = senha;
     }
-
 
     public String getEmail() {
         return email;
